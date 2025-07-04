@@ -2,10 +2,62 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Mi primera página</title>
+    <title>Bot de Reclutamiento</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+        }
+        #chat {
+            border: 1px solid #ccc;
+            width: 300px;
+            height: 400px;
+            margin: 0 auto;
+            overflow-y: scroll;
+            padding: 10px;
+            background-color: #f9f9f9;
+        }
+        #userInput {
+            width: 200px;
+            padding: 5px;
+        }
+        #sendBtn {
+            padding: 5px 10px;
+        }
+    </style>
 </head>
 <body>
-    <h1>¡Hola, esta es mi página en GitHub Pages!</h1>
-    <p>Estoy aprendiendo a publicar sitios web.</p>
+    <h1>Bot de Reclutamiento</h1>
+    <div id="chat">
+        <p><strong>Bot:</strong> ¡Hola! Soy tu asistente de reclutamiento. ¿Querés dejarme tu nombre?</p>
+    </div>
+    <input type="text" id="userInput" placeholder="Escribí tu respuesta...">
+    <button id="sendBtn">Enviar</button>
+
+    <script>
+        const chat = document.getElementById("chat");
+        const userInput = document.getElementById("userInput");
+        const sendBtn = document.getElementById("sendBtn");
+
+        sendBtn.addEventListener("click", () => {
+            const userText = userInput.value.trim();
+            if (userText === "") return;
+
+            chat.innerHTML += `<p><strong>Vos:</strong> ${userText}</p>`;
+            userInput.value = "";
+
+            setTimeout(() => {
+                if (userText.toLowerCase().includes("hola") || userText.toLowerCase().includes("nombre")) {
+                    chat.innerHTML += `<p><strong>Bot:</strong> Encantado, ¿en qué puesto estás interesado?</p>`;
+                } else if (userText.toLowerCase().includes("desarrollador")) {
+                    chat.innerHTML += `<p><strong>Bot:</strong> ¡Genial! En breve un reclutador se pondrá en contacto con vos.</p>`;
+                } else {
+                    chat.innerHTML += `<p><strong>Bot:</strong> Gracias por tu mensaje. Un reclutador te contactará pronto.</p>`;
+                }
+                chat.scrollTop = chat.scrollHeight;
+            }, 500);
+        });
+    </script>
 </body>
 </html>
