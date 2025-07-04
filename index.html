@@ -2,62 +2,133 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Bot de Reclutamiento</title>
+    <title>Bot de Reclutamiento - IG Networks</title>
     <style>
         body {
             font-family: Arial, sans-serif;
-            text-align: center;
-            margin-top: 50px;
+            max-width: 400px;
+            margin: 50px auto;
+            background: #f7f7f7;
+            padding: 20px;
+            border-radius: 10px;
         }
         #chat {
             border: 1px solid #ccc;
-            width: 300px;
-            height: 400px;
-            margin: 0 auto;
-            overflow-y: scroll;
             padding: 10px;
-            background-color: #f9f9f9;
+            height: 400px;
+            overflow-y: auto;
+            background: #fff;
+            margin-bottom: 10px;
         }
-        #userInput {
-            width: 200px;
+        .bot, .user {
+            margin: 5px 0;
+        }
+        .bot {
+            color: #007bff;
+        }
+        .user {
+            color: #28a745;
+            text-align: right;
+        }
+        #inputSection {
+            display: flex;
+            gap: 5px;
+        }
+        input, button {
             padding: 5px;
-        }
-        #sendBtn {
-            padding: 5px 10px;
+            font-size: 14px;
         }
     </style>
 </head>
 <body>
-    <h1>Bot de Reclutamiento</h1>
-    <div id="chat">
-        <p><strong>Bot:</strong> ¡Hola! Soy tu asistente de reclutamiento. ¿Querés dejarme tu nombre?</p>
+
+    <h2>Bot de Reclutamiento - IG Networks</h2>
+    <div id="chat"></div>
+
+    <div id="inputSection">
+        <input type="text" id="userInput" placeholder="Escribí tu respuesta..." autofocus>
+        <button onclick="sendMessage()">Enviar</button>
     </div>
-    <input type="text" id="userInput" placeholder="Escribí tu respuesta...">
-    <button id="sendBtn">Enviar</button>
 
     <script>
         const chat = document.getElementById("chat");
         const userInput = document.getElementById("userInput");
-        const sendBtn = document.getElementById("sendBtn");
 
-        sendBtn.addEventListener("click", () => {
-            const userText = userInput.value.trim();
-            if (userText === "") return;
+        let step = 0;
+        let userName = "";
 
-            chat.innerHTML += `<p><strong>Vos:</strong> ${userText}</p>`;
+        function botMessage(msg) {
+            chat.innerHTML += `<div class="bot"><strong>Bot:</strong> ${msg}</div>`;
+            chat.scrollTop = chat.scrollHeight;
+        }
+
+        function userMessage(msg) {
+            chat.innerHTML += `<div class="user"><strong>Vos:</strong> ${msg}</div>`;
+            chat.scrollTop = chat.scrollHeight;
+        }
+
+        function sendMessage() {
+            const msg = userInput.value.trim();
+            if (msg === "") return;
+            userMessage(msg);
             userInput.value = "";
 
-            setTimeout(() => {
-                if (userText.toLowerCase().includes("hola") || userText.toLowerCase().includes("nombre")) {
-                    chat.innerHTML += `<p><strong>Bot:</strong> Encantado, ¿en qué puesto estás interesado?</p>`;
-                } else if (userText.toLowerCase().includes("desarrollador")) {
-                    chat.innerHTML += `<p><strong>Bot:</strong> ¡Genial! En breve un reclutador se pondrá en contacto con vos.</p>`;
-                } else {
-                    chat.innerHTML += `<p><strong>Bot:</strong> Gracias por tu mensaje. Un reclutador te contactará pronto.</p>`;
-                }
-                chat.scrollTop = chat.scrollHeight;
-            }, 500);
-        });
+            setTimeout(() => nextStep(msg), 500);
+        }
+
+        function nextStep(msg) {
+            switch (step) {
+                case 0:
+                    botMessage("¡Hola! Soy Globi, el asistente virtual de reclutamiento de IG Networks. ¿Te gustaría saber más sobre nuestras vacantes? (Si / No)");
+                    step++;
+                    break;
+                case 1:
+                    if (msg.toLowerCase() === "si" || msg.toLowerCase() === "sí") {
+                        botMessage("¡Buenísimo! ¿Cuál es tu nombre?");
+                        step++;
+                    } else {
+                        botMessage("¡Entendido! Si cambiás de opinión o tenés consultas, estamos para ayudarte. ¡Que tengas un excelente día!");
+                        step = -1;
+                    }
+                    break;
+                case 2:
+                    userName = msg;
+                    botMessage(`Mucho gusto, ${userName}. ¿Cuál es tu correo electrónico?`);
+                    step++;
+                    break;
+                case 3:
+                    botMessage("Perfecto. ¿Podrías indicarme tu área de experiencia?");
+                    step++;
+                    break;
+                case 4:
+                    botMessage("¿Cuál es tu nivel de inglés? (Ninguno / Principiante / Intermedio / Avanzado / Bilingüe)");
+                    step++;
+                    break;
+                case 5:
+                    botMessage("¿Contás con experiencia en la industria tecnológica? (Si / No)");
+                    step++;
+                    break;
+                case 6:
+                    botMessage("A lo largo de tu carrera laboral, ¿has trabajado de manera 100% remota? (Si / Híbrida / No todavía)");
+                    step++;
+                    break;
+                case 7:
+                    botMessage("Por favor, podés dejar el link a tu CV (por ejemplo, de LinkedIn o PDF en Drive).");
+                    step++;
+                    break;
+                case 8:
+                    botMessage("¡Gracias por completar la información! Guardaremos tu perfil y te contactaremos. También podés seguirnos en LinkedIn para conocer nuevas oportunidades: https://www.linkedin.com/company/ig-networks/");
+                    step = -1;
+                    break;
+                default:
+                    botMessage("La conversación ha finalizado. ¡Gracias!");
+                    break;
+            }
+        }
+
+        // Iniciar conversación
+        nextStep();
     </script>
+
 </body>
 </html>
