@@ -1,134 +1,408 @@
+
+
+Would you like me to provide any additional specific edits? I can focus on:
+- More detailed GitHub instructions
+- Mobile responsiveness improvements
+- Form validation enhancements
+- Accessibility improvements
+- Performance optimizations
+
+Let me know which aspects you'd like me to focus on for additional edits.Here is the updated HTML content after applying above edits:
+
+```html
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Bot de Reclutamiento - IG Networks</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bot de Reclutamiento Automatizado</title>
+    <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            max-width: 400px;
-            margin: 50px auto;
-            background: #f7f7f7;
-            padding: 20px;
-            border-radius: 10px;
+        .file-input-label:hover {
+            background-color: #2563eb;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
         }
-        #chat {
-            border: 1px solid #ccc;
-            padding: 10px;
-            height: 400px;
-            overflow-y: auto;
-            background: #fff;
-            margin-bottom: 10px;
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
         }
-        .bot, .user {
-            margin: 5px 0;
+        .pdf-icon {
+            filter: invert(18%) sepia(98%) saturate(7151%) hue-rotate(359deg) brightness(97%) contrast(112%);
         }
-        .bot {
-            color: #007bff;
+        .animate-pulse {
+            animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
         }
-        .user {
-            color: #28a745;
-            text-align: right;
-        }
-        #inputSection {
-            display: flex;
-            gap: 5px;
-        }
-        input, button {
-            padding: 5px;
-            font-size: 14px;
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
         }
     </style>
 </head>
-<body>
+<body class="bg-gray-50 font-sans">
+    <div class="min-h-screen">
+        <!-- Header -->
+        <header class="bg-white shadow-sm">
+            <div class="max-w-7xl mx-auto px-4 py-6 sm:px-6 lg:px-8 flex justify-between items-center">
+                <div class="flex items-center">
+                    <img src="https://placehold.co/50x50?text=HR+Bot" alt="Logo HR Bot" class="h-10 w-10 mr-3">
+                    <h1 class="text-2xl font-bold text-gray-900">HR Bot</h1>
+                </div>
+                <nav class="hidden md:flex space-x-8">
+                    <a href="#" class="text-blue-600 font-medium">Inicio</a>
+                    <a href="#" class="text-gray-500 hover:text-blue-600">Vacantes</a>
+                    <a href="#" class="text-gray-500 hover:text-blue-600">Candidatos</a>
+                    <a href="#" class="text-gray-500 hover:text-blue-600">Analíticas</a>
+                </nav>
+                <button class="md:hidden text-gray-500">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+                    </svg>
+                </button>
+            </div>
+        </header>
 
-    <h2>Bot de Reclutamiento - IG Networks</h2>
-    <div id="chat"></div>
+        <!-- Main Content -->
+        <main class="max-w-7xl mx-auto px-4 py-8 sm:px-6 lg:px-8">
+            <!-- Hero Section -->
+            <div class="bg-blue-700 rounded-2xl p-8 text-white mb-10">
+                <div class="max-w-2xl">
+                    <h2 class="text-3xl font-bold mb-4">Bot de Reclutamiento 100% Gratis</h2>
+                    <p class="text-blue-100 mb-6">
+                        Sistema automatizado para recibir CVs. ¡Totalmente gratis y fácil de implementar!
+                    </p>
+                    <p class="text-blue-100 text-sm mb-6">
+                        ¡Implementación fácil con GitHub Pages! Solo copia el código HTML.
+                    </p>
+                    <div class="flex space-x-4">
+                        <button class="bg-white text-blue-700 px-6 py-3 rounded-lg font-medium hover:bg-blue-50 transition duration-300">
+                            Ver vacantes
+                        </button>
+                        <button class="border-2 border-white text-white px-6 py-3 rounded-lg font-medium hover:bg-blue-600 transition duration-300">
+                            Cómo funciona
+                        </button>
+                    </div>
+                </div>
+            </div>
 
-    <div id="inputSection">
-        <input type="text" id="userInput" placeholder="Escribí tu respuesta..." autofocus>
-        <button onclick="sendMessage()">Enviar</button>
+            <!-- Upload Section -->
+            <div class="bg-white rounded-2xl shadow-sm p-8 mb-10">
+                <div class="mb-6">
+                    <h2 class="text-2xl font-bold text-gray-900 mb-2">Subir CV</h2>
+                    <p class="text-gray-600">Sube el currículum del candidato para que nuestro sistema lo procese automáticamente.</p>
+                </div>
+
+                <form id="uploadForm" class="space-y-6">
+                    <div>
+                        <label for="name" class="block text-sm font-medium text-gray-700 mb-1">Nombre del Candidato</label>
+                        <input type="text" id="name" name="name" required 
+                            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                    </div>
+
+                    <div>
+                        <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Correo Electrónico</label>
+                        <input type="email" id="email" name="email" required 
+                            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                    </div>
+
+                    <div>
+                        <label for="position" class="block text-sm font-medium text-gray-700 mb-1">Posición Aplicada</label>
+                        <select id="position" name="position" required
+                            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                            <option value="">Seleccione una opción</option>
+                            <option value="frontend">Desarrollador Frontend</option>
+                            <option value="backend">Desarrollador Backend</option>
+                            <option value="fullstack">Desarrollador Fullstack</option>
+                            <option value="designer">Diseñador UX/UI</option>
+                            <option value="manager">Gerente de Proyecto</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Archivo del CV</label>
+                        <div class="mt-2 flex justify-center rounded-lg border border-dashed border-gray-300 px-6 py-10">
+                            <div class="text-center">
+                                <svg class="mx-auto h-12 w-12 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m6.75 12l-3-3m0 0l-3 3m3-3v6m-1.5-15H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" />
+                                </svg>
+                                <div class="mt-4 flex text-sm leading-6 text-gray-600">
+                                    <label for="cvFile" class="relative cursor-pointer rounded-md bg-white font-medium text-blue-600 focus-within:outline-none hover:text-blue-500">
+                                        <span>Sube un archivo</span>
+                                        <input id="cvFile" name="cvFile" type="file" accept=".pdf,.doc,.docx" required 
+                                            class="sr-only">
+                                    </label>
+                                    <p class="pl-1">o arrástralo aquí</p>
+                                </div>
+                                <p class="text-xs leading-5 text-gray-600">PDF, DOC o DOCX hasta 10MB</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flex items-center">
+                        <input id="consent" name="consent" type="checkbox" required
+                            class="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500 mr-3">
+                        <label for="consent" class="block text-sm text-gray-700">
+                            Autorizo el uso de estos datos para el proceso de reclutamiento
+                        </label>
+                    </div>
+
+                    <div>
+                        <button type="submit" class="w-full bg-blue-600 px-6 py-3 rounded-lg text-white font-medium hover:bg-blue-700 transition duration-300">
+                            Procesar CV (Gratis)
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Candidates List -->
+            <div class="bg-white rounded-2xl shadow-sm p-8">
+                <div class="flex justify-between items-center mb-6">
+                    <div>
+                        <h2 class="text-2xl font-bold text-gray-900">Candidatos Recientes</h2>
+                        <p class="text-gray-600">Lista de CVs recibidos y procesados</p>
+                    </div>
+                    <div class="flex space-x-3">
+                        <button class="border border-gray-300 rounded-lg px-4 py-2 text-gray-700 hover:bg-gray-50">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5" />
+                            </svg>
+                        </button>
+                        <button class="border border-gray-300 rounded-lg px-4 py-2 text-gray-700 hover:bg-gray-50">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 6h9.75M10.5 6a1.5 1.5 0 11-3 0m3 0a1.5 1.5 0 10-3 0M3.75 6H7.5m3 12h9.75m-9.75 0a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m-3.75 0H7.5m9-6h3.75m-3.75 0a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m-9.75 0h9.75" />
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+
+                <div id="candidatesList" class="space-y-4">
+                    <!-- Candidate cards will be dynamically inserted here -->
+                    <template id="candidateTemplate">
+                        <div class="card bg-white border border-gray-200 rounded-lg p-6 transition duration-300 hover:border-blue-200">
+                            <div class="flex items-start justify-between">
+                                <div class="flex space-x-4">
+                                    <div class="flex-shrink-0">
+                                        <img src="https://placehold.co/80x80?text=Foto" alt="Foto del candidato {name}" class="h-12 w-12 rounded-full">
+                                    </div>
+                                    <div>
+                                        <h3 class="text-lg font-medium text-gray-900">{name}</h3>
+                                        <p class="text-sm text-gray-500">{email}</p>
+                                        <div class="mt-2">
+                                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
+                                                {position}
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="flex items-center space-x-3">
+                                    <a href="#" class="text-blue-600 hover:text-blue-800">
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="pdf-icon w-6 h-6">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m.75 12l3-3m0 0l3 3m-3-3v6m-1.5-15H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" />
+                                        </svg>
+                                    </a>
+                                    <div class="relative">
+                                        <button class="text-gray-400 hover:text-gray-600">
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                                <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0zM12.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0zM18.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0z" />
+                                            </svg>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mt-4 flex justify-between items-center">
+                                <div class="flex items-center">
+                                    <span class="text-xs font-medium text-gray-500 mr-2">Compatibilidad:</span>
+                                    <div class="w-24 bg-gray-200 rounded-full h-2.5">
+                                        <div class="bg-green-600 h-2.5 rounded-full" style="width: {score}%"></div>
+                                    </div>
+                                    <span class="text-xs font-medium text-gray-500 ml-1">{score}%</span>
+                                </div>
+                                <span class="text-xs text-gray-500">{date}</span>
+                            </div>
+                        </div>
+                    </template>
+                </div>
+
+                <div class="mt-6 flex justify-center">
+                    <button id="loadMore" class="text-blue-600 px-4 py-2 hover:bg-blue-50 rounded-lg font-medium">
+                        Ver más candidatos
+                    </button>
+                </div>
+            </div>
+        </main>
     </div>
 
+    <!-- Footer -->
+    <footer class="bg-white border-t border-gray-200 mt-12">
+        <div class="max-w-7xl mx-auto px-4 py-8 sm:px-6 lg:px-8">
+            <div class="md:flex md:items-center md:justify-between">
+                <div class="flex justify-center md:order-2 space-x-6">
+                    <a href="#" class="text-gray-400 hover:text-gray-500">
+                        <span class="sr-only">Facebook</span>
+                        <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                            <path fill-rule="evenodd" d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z" clip-rule="evenodd"></path>
+                        </svg>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-gray-500">
+                        <span class="sr-only">Instagram</span>
+                        <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                            <path fill-rule="evenodd" d="M12.315 2c2.43 0 2.784.013 3.808.06 1.064.049 1.791.218 2.427.465a4.902 4.902 0 011.772 1.153 4.902 4.902 0 011.153 1.772c.247.636.416 1.363.465 2.427.048 1.067.06 1.407.06 4.123v.08c0 2.643-.012 2.987-.06 4.043-.049 1.064-.218 1.791-.465 2.427a4.902 4.902 0 01-1.153 1.772 4.902 4.902 0 01-1.772 1.153c-.636.247-1.363.416-2.427.465-1.067.048-1.407.06-4.123.06h-.08c-2.643 0-2.987-.012-4.043-.06-1.064-.049-1.791-.218-2.427-.465a4.902 4.902 0 01-1.772-1.153 4.902 4.902 0 01-1.153-1.772c-.247-.636-.416-1.363-.465-2.427-.047-1.024-.06-1.379-.06-3.808v-.63c0-2.43.013-2.784.06-3.808.049-1.064.218-1.791.465-2.427a4.902 4.902 0 011.153-1.772A4.902 4.902 0 015.45 2.525c.636-.247 1.363-.416 2.427-.465C8.901 2.013 9.256 2 11.685 2h.63zm-.081 1.802h-.468c-2.456 0-2.784.011-3.807.058-.975.045-1.504.207-1.857.344-.467.182-.8.398-1.15.748-.35.35-.566.683-.748 1.15-.137.353-.3.882-.344 1.857-.047 1.023-.058 1.351-.058 3.807v.468c0 2.456.011 2.784.058 3.807.045.975.207 1.504.344 1.857.182.466.399.8.748 1.15.35.35.683.566 1.15.748.353.137.882.3 1.857.344 1.054.048 1.37.058 4.041.058h.08c2.597 0 2.917-.01 3.96-.058.976-.045 1.505-.207 1.858-.344.466-.182.8-.398 1.15-.748.35-.35.566-.683.748-1.15.137-.353.3-.882.344-1.857.048-1.055.058-1.37.058-4.041v-.08c0-2.597-.01-2.917-.058-3.96-.045-.976-.207-1.505-.344-1.858a3.097 3.097 0 00-.748-1.15 3.098 3.098 0 00-1.15-.748c-.353-.137-.882-.3-1.857-.344-1.023-.047-1.351-.058-3.807-.058zM12 6.865a5.135 5.135 0 110 10.27 5.135 5.135 0 010-10.27zm0 1.802a3.333 3.333 0 100 6.666 3.333 3.333 0 000-6.666zm5.338-3.205a1.2 1.2 0 110 2.4 1.2 1.2 0 010-2.4z" clip-rule="evenodd"></path>
+                        </svg>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-gray-500">
+                        <span class="sr-only">Twitter</span>
+                        <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                            <path d="M8.29 20.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.012-.53A8.348 8.348 0 0022 5.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996 4.107 4.107 0 00-6.993 3.743 11.65 11.65 0 01-8.457-4.287 4.106 4.106 0 001.27 5.477A4.072 4.072 0 012.8 9.713v.052a4.105 4.105 0 003.292 4.022 4.095 4.095 0 01-1.853.07 4.108 4.108 0 003.834 2.85A8.233 8.233 0 012 18.407a11.616 11.616 0 006.29 1.84"></path>
+                        </svg>
+                    </a>
+                </div>
+                <div class="mt-8 md:mt-0 md:order-1">
+                    <div class="text-center">
+                        <p class="text-sm text-gray-500 mb-2">
+                            &copy; 2023 HR Bot. Todos los derechos reservados.
+                        </p>
+                        <p class="text-xs text-gray-400">
+                            Tutorial GitHub: 1) Crea repositorio 2) Sube este archivo index.html 3) Ve a Settings > Pages > Selecciona rama main 4) Guarda
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
     <script>
-        const chat = document.getElementById("chat");
-        const userInput = document.getElementById("userInput");
+        document.addEventListener('DOMContentLoaded', function() {
+            // Sample data for demonstration
+            const sampleCandidates = [
+                {
+                    name: "María González",
+                    email: "maria.gonzalez@example.com",
+                    position: "Desarrolladora Frontend",
+                    score: 87,
+                    date: "Hace 2 horas"
+                },
+                {
+                    name: "Carlos Rodríguez",
+                    email: "carlos.rodriguez@example.com",
+                    position: "Gerente de Proyecto",
+                    score: 76,
+                    date: "Hoy"
+                },
+                {
+                    name: "Ana Martínez",
+                    email: "ana.martinez@example.com",
+                    position: "Diseñadora UX/UI",
+                    score: 92,
+                    date: "Ayer"
+                },
+                {
+                    name: "Juan Pérez",
+                    email: "juan.perez@example.com",
+                    position: "Desarrollador Backend",
+                    score: 81,
+                    date: "Ayer"
+                }
+            ];
 
-        let step = 0;
-        let userName = "";
+            // Load initial candidates
+            loadCandidates();
 
-        function botMessage(msg) {
-            chat.innerHTML += `<div class="bot"><strong>Bot:</strong> ${msg}</div>`;
-            chat.scrollTop = chat.scrollHeight;
-        }
-
-        function userMessage(msg) {
-            chat.innerHTML += `<div class="user"><strong>Vos:</strong> ${msg}</div>`;
-            chat.scrollTop = chat.scrollHeight;
-        }
-
-        function sendMessage() {
-            const msg = userInput.value.trim();
-            if (msg === "") return;
-            userMessage(msg);
-            userInput.value = "";
-
-            setTimeout(() => nextStep(msg), 500);
-        }
-
-        function nextStep(msg) {
-            switch (step) {
-                case 0:
-                    botMessage("¡Hola! Soy Globi, el asistente virtual de reclutamiento de IG Networks. ¿Te gustaría saber más sobre nuestras vacantes? (Si / No)");
-                    step++;
-                    break;
-                case 1:
-                    if (msg.toLowerCase() === "si" || msg.toLowerCase() === "sí") {
-                        botMessage("¡Buenísimo! ¿Cuál es tu nombre?");
-                        step++;
-                    } else {
-                        botMessage("¡Entendido! Si cambiás de opinión o tenés consultas, estamos para ayudarte. ¡Que tengas un excelente día!");
-                        step = -1;
+            // Form submission handler
+            document.getElementById('uploadForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const name = document.getElementById('name').value;
+                const email = document.getElementById('email').value;
+                const position = document.getElementById('position').value;
+                const fileInput = document.getElementById('cvFile');
+                
+                if (fileInput.files.length === 0) {
+                    alert('Por favor, selecciona un archivo de CV');
+                    return;
+                }
+                
+                const file = fileInput.files[0];
+                const allowedTypes = ['application/pdf', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'];
+                
+                if (!allowedTypes.includes(file.type)) {
+                    alert('Por favor, sube un archivo PDF, DOC o DOCX');
+                    return;
+                }
+                
+                if (file.size > 10 * 1024 * 1024) { // 10MB
+                    alert('El archivo es demasiado grande. El tamaño máximo permitido es 10MB.');
+                    return;
+                }
+                
+                // For demo purposes, simulate upload
+                setTimeout(() => {
+                    // Add new candidate to the top of the list
+                    const newCandidate = {
+                        name: name,
+                        email: email,
+                        position: document.getElementById('position').options[position.selectedIndex].text,
+                        score: Math.floor(Math.random() * 30) + 70, // Random score between 70-99
+                        date: "Ahora"
+                    };
+                    
+                    addCandidate(newCandidate);
+                    
+                    // Reset form
+                    document.getElementById('uploadForm').reset();
+                    
+                    // Show success message
+                    alert('CV enviado correctamente. Nuestro sistema lo analizará automáticamente.');
+                }, 1500);
+            });
+            
+            // Load more candidates handler
+            document.getElementById('loadMore').addEventListener('click', function() {
+                // For demo purposes, add more sample candidates
+                const moreCandidates = [
+                    {
+                        name: "Laura Sánchez",
+                        email: "laura.sanchez@example.com",
+                        position: "Desarrolladora Fullstack",
+                        score: 89,
+                        date: "Hace 3 días"
+                    },
+                    {
+                        name: "Pedro López",
+                        email: "pedro.lopez@example.com",
+                        position: "Desarrollador Backend",
+                        score: 78,
+                        date: "Hace 5 días"
                     }
-                    break;
-                case 2:
-                    userName = msg;
-                    botMessage(`Mucho gusto, ${userName}. ¿Cuál es tu correo electrónico?`);
-                    step++;
-                    break;
-                case 3:
-                    botMessage("Perfecto. ¿Podrías indicarme tu área de experiencia?");
-                    step++;
-                    break;
-                case 4:
-                    botMessage("¿Cuál es tu nivel de inglés? (Ninguno / Principiante / Intermedio / Avanzado / Bilingüe)");
-                    step++;
-                    break;
-                case 5:
-                    botMessage("¿Contás con experiencia en la industria tecnológica? (Si / No)");
-                    step++;
-                    break;
-                case 6:
-                    botMessage("A lo largo de tu carrera laboral, ¿has trabajado de manera 100% remota? (Si / Híbrida / No todavía)");
-                    step++;
-                    break;
-                case 7:
-                    botMessage("Por favor, podés dejar el link a tu CV (por ejemplo, de LinkedIn o PDF en Drive).");
-                    step++;
-                    break;
-                case 8:
-                    botMessage("¡Gracias por completar la información! Guardaremos tu perfil y te contactaremos. También podés seguirnos en LinkedIn para conocer nuevas oportunidades: https://www.linkedin.com/company/ig-networks/");
-                    step = -1;
-                    break;
-                default:
-                    botMessage("La conversación ha finalizado. ¡Gracias!");
-                    break;
+                ];
+                
+                moreCandidates.forEach(candidate => {
+                    addCandidate(candidate);
+                });
+                
+                this.textContent = "No hay más candidatos";
+                this.disabled = true;
+            });
+            
+            function loadCandidates() {
+                sampleCandidates.forEach(candidate => {
+                    addCandidate(candidate);
+                });
             }
-        }
-
-        // Iniciar conversación
-        nextStep();
+            
+            function addCandidate(candidate) {
+                const template = document.getElementById('candidateTemplate');
+                const clone = document.importNode(template.content, true);
+                
+                clone.querySelector('h3').textContent = candidate.name;
+                clone.querySelector('p.text-gray-500').textContent = candidate.email;
+                clone.querySelector('span.bg-blue-100').textContent = candidate.position;
+                clone.querySelector('.bg-green-600').style.width = candidate.score + '%';
+                clone.querySelector('.bg-green-600').nextElementSibling.textContent = candidate.score + '%';
+                clone.querySelector('span.text-xs.text-gray-500:last-child').textContent = candidate.date;
+                
+                document.getElementById('candidatesList').prepend(clone);
+            }
+        });
     </script>
-
 </body>
 </html>
