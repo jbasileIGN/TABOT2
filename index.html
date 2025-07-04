@@ -406,3 +406,26 @@ Let me know which aspects you'd like me to focus on for additional edits.Here is
     </script>
 </body>
 </html>
+function enviarDatosASheets() {
+    const payload = {
+        nombre: userName,
+        email: email,
+        area: area,
+        nivelIngles: nivelIngles,
+        experienciaTech: experienciaTech,
+        trabajoRemoto: trabajoRemoto,
+        cv: linkCV
+    };
+
+    fetch("URL_DE_TU_SCRIPT", {
+        method: "POST",
+        body: JSON.stringify(payload)
+    })
+    .then(res => res.text())
+    .then(data => {
+        botMessage("¡Tus datos fueron enviados correctamente! Gracias por participar.");
+    })
+    .catch(err => {
+        botMessage("Hubo un error al enviar tus datos, por favor contactanos.");
+    });
+}
